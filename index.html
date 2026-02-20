@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Songless Clone</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Endless Songless</p>
+          <h1>Songless Clone</h1>
+        </div>
+        <p id="statusTicker">Mode: Unlimited</p>
+      </header>
+
+      <nav class="tabs" aria-label="Main sections">
+        <button class="tab active" data-tab="play">Play</button>
+        <button class="tab" data-tab="story">Story</button>
+        <button class="tab" data-tab="leaderboard">Leaders</button>
+        <button class="tab" data-tab="multiplayer">Multiplayer</button>
+        <button class="tab" data-tab="friends">Friends</button>
+        <button class="tab" data-tab="settings">Settings</button>
+      </nav>
+
+      <main>
+        <section class="view active" id="view-play">
+          <article class="panel">
+            <h2>Classic Guessing</h2>
+            <div class="row">
+              <label>Mode</label>
+              <select id="gameMode">
+                <option value="unlimited">Unlimited</option>
+                <option value="daily">Daily</option>
+                <option value="story">Story</option>
+              </select>
+            </div>
+            <div class="row">
+              <label>Difficulty</label>
+              <select id="difficulty">
+                <option value="easy">Easy</option>
+                <option value="normal" selected>Normal</option>
+                <option value="hard">Hard</option>
+              </select>
+            </div>
+            <div class="row">
+              <label>Genre</label>
+              <select id="genreFilter">
+                <option value="Any">Any</option>
+              </select>
+            </div>
+            <div class="row">
+              <label>Decade</label>
+              <select id="decadeFilter">
+                <option value="Any">Any</option>
+              </select>
+            </div>
+            <div class="actions">
+              <button id="startGameBtn">Start Game</button>
+              <button id="pauseBtn">Pause</button>
+              <button id="resumeBtn">Resume</button>
+              <button id="skipBtn" disabled>Skip</button>
+              <button id="newRoundBtn">Next</button>
+            </div>
+            <p id="roundNote" class="muted"></p>
+          </article>
+
+          <article class="panel">
+            <h2>Now Playing</h2>
+            <p id="songClue" class="muted">Press Start Game to begin.</p>
+            <p id="timerLine">Time Left: <span id="timerText">--</span></p>
+            <p id="clipLine">Current Clip: <span id="clipText">--</span></p>
+            <p id="hintLine">Hint: <span id="hintText">--</span></p>
+            <p id="scoreLine">Session Score: <span id="sessionScore">0</span> | Streak: <span id="streakText">0</span> | Best: <span id="bestScoreText">0</span></p>
+            <p id="feedback" aria-live="polite"></p>
+            <audio id="songAudio" preload="auto"></audio>
+          </article>
+
+          <article class="panel">
+            <h2>Guess</h2>
+            <label>Song title</label>
+            <input id="titleGuess" type="text" autocomplete="off" placeholder="Song title..." />
+            <label>Artist</label>
+            <input id="artistGuess" type="text" autocomplete="off" placeholder="Artist name..." />
+            <div class="actions">
+              <button id="guessBtn" disabled>Submit Guess</button>
+            </div>
+            <div class="actions">
+              <button id="shareBtn">Share Result</button>
+              <button id="showAnswerBtn">Reveal</button>
+            </div>
+          </article>
+        </section>
+
+        <section class="view" id="view-story">
+          <article class="panel">
+            <h2>Story Mode</h2>
+            <p id="storyTitle">Ready for a themed chapter.</p>
+            <p id="storyDescription" class="muted"></p>
+            <div class="meter">
+              <div id="storyProgress"></div>
+            </div>
+            <p id="storyGoal"></p>
+            <div class="actions">
+              <button id="storyAdvanceBtn">Continue Story</button>
+            </div>
+          </article>
+          <article class="panel">
+            <h2>Achievements</h2>
+            <ul id="achievementList"></ul>
+          </article>
+        </section>
+
+        <section class="view" id="view-leaderboard">
+          <article class="panel">
+            <h2>Leaderboard (All Time)</h2>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Player</th>
+                  <th>Mode</th>
+                  <th>Score</th>
+                  <th>Date</th>
+                </tr>
+              </thead>
+              <tbody id="leaderboardAll"></tbody>
+            </table>
+          </article>
+          <article class="panel">
+            <h2>Daily</h2>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Player</th>
+                  <th>Score</th>
+                </tr>
+              </thead>
+              <tbody id="leaderboardDaily"></tbody>
+            </table>
+          </article>
+        </section>
+
+        <section class="view" id="view-multiplayer">
+          <article class="panel">
+            <h2>Multiplayer Rooms</h2>
+            <div class="row">
+              <label>Room code</label>
+              <input id="roomCodeInput" type="text" maxlength="6" placeholder="ABC123" />
+              <div class="actions">
+                <button id="createRoomBtn">Create</button>
+                <button id="joinRoomBtn">Join</button>
+                <button id="leaveRoomBtn">Leave</button>
+              </div>
+            </div>
+            <p class="muted" id="roomStatus"></p>
+            <div class="room-grid">
+              <div id="roomCodeView">--</div>
+              <div id="roomModeView">Mode: --</div>
+              <div id="roomHintView">Hint lvl: --</div>
+              <div id="roomSongView">Song: --</div>
+            </div>
+            <div class="actions">
+              <button id="startRoomBtn">Start Battle</button>
+              <button id="nextRoundBtn">Next Round</button>
+            </div>
+          </article>
+          <article class="panel">
+            <h2>Battle Guess</h2>
+            <p class="muted">Server-backed multiplayer updates with real-time stream and polling fallback.</p>
+            <label>Song title</label>
+            <input id="mpTitleGuess" type="text" placeholder="Song title..." />
+            <label>Artist</label>
+            <input id="mpArtistGuess" type="text" placeholder="Artist name..." />
+            <div class="actions">
+              <button id="mpGuessBtn">Submit</button>
+              <button id="mpSkipBtn">Skip</button>
+            </div>
+            <p id="mpFeedback"></p>
+            <p id="mpTimer">Timer: --</p>
+          </article>
+          <article class="panel">
+            <h2>Room Player Scores</h2>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Player</th>
+                  <th>Score</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="roomPlayers"></tbody>
+            </table>
+          </article>
+        </section>
+
+        <section class="view" id="view-friends">
+          <article class="panel">
+            <h2>Friends</h2>
+            <p id="myFriendCode"></p>
+            <label>Add friend by code</label>
+            <div class="row">
+              <input id="friendCodeInput" type="text" placeholder="Friend code" />
+              <button id="addFriendBtn">Add Friend</button>
+            </div>
+          </article>
+          <article class="panel">
+            <h2>Friend Leaderboard</h2>
+            <table class="table">
+              <thead>
+                <tr><th>Friend</th><th>Best Score</th><th>Code</th></tr>
+              </thead>
+              <tbody id="friendList"></tbody>
+            </table>
+          </article>
+        </section>
+
+        <section class="view" id="view-settings">
+          <article class="panel">
+            <h2>Authentication</h2>
+            <label>Username</label>
+            <input id="authUsernameInput" type="text" maxlength="24" autocomplete="username" />
+            <label>Password</label>
+            <input id="authPasswordInput" type="password" autocomplete="current-password" />
+            <div class="actions">
+              <button id="authRegisterBtn">Register</button>
+              <button id="authLoginBtn">Log In</button>
+              <button id="authLogoutBtn">Log Out</button>
+            </div>
+            <p id="authStatus" class="muted">Not signed in.</p>
+            <p id="authSessionText" class="muted">Session: none</p>
+          </article>
+
+          <article class="panel">
+            <h2>Profile</h2>
+            <label>Display name</label>
+            <input id="userNameInput" type="text" maxlength="20" />
+            <div class="actions">
+              <button id="saveProfileBtn">Save</button>
+            </div>
+            <p id="gameSummary"></p>
+          </article>
+          <article class="panel">
+            <h2>Controls</h2>
+            <label>Multiplayer server URL</label>
+            <input id="serverUrlInput" type="text" placeholder="http://localhost:8080/api" />
+            <div class="actions">
+              <button id="saveServerUrlBtn">Save URL</button>
+              <button id="testServerBtn">Test</button>
+            </div>
+            <p id="serverStatus" class="muted">No server test yet.</p>
+            <ul class="mini">
+              <li>Song snippets increase with each skip</li>
+              <li>Hint reveals with every level</li>
+              <li>Daily challenge resets every day</li>
+            </ul>
+          </article>
+        </section>
+      </main>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>

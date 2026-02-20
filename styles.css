@@ -1,0 +1,226 @@
+:root {
+  --bg: linear-gradient(125deg, #101a3d 0%, #1c2b58 45%, #12214a 100%);
+  --panel: rgba(255, 255, 255, 0.10);
+  --panel-2: rgba(255, 255, 255, 0.18);
+  --text: #eef2ff;
+  --muted: #bbc2e2;
+  --primary: #6ef2ff;
+  --accent: #ff8a65;
+  --danger: #ff6b81;
+  --ok: #7dffb0;
+  --border: rgba(255, 255, 255, 0.16);
+  font-family: "Trebuchet MS", "Gill Sans", "Segoe UI", sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--text);
+  background: var(--bg);
+  background-attachment: fixed;
+}
+
+.app {
+  width: min(1100px, 94vw);
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 1rem;
+}
+
+.eyebrow {
+  margin: 0;
+  color: var(--primary);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+h1 {
+  margin: 0.2rem 0;
+  font-size: clamp(1.3rem, 2.7vw, 2rem);
+}
+
+#statusTicker {
+  margin: 0;
+  color: var(--accent);
+}
+
+.tabs {
+  margin: 1rem 0;
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.tab {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 0.7rem 1rem;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.tab.active {
+  background: linear-gradient(120deg, var(--accent), var(--primary));
+  border-color: transparent;
+  color: #00162c;
+  font-weight: 700;
+}
+
+main {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.view {
+  display: none;
+  animation: fadeIn 0.4s ease both;
+}
+
+.view.active {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 0.8rem;
+}
+
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 0.95rem;
+  backdrop-filter: blur(4px);
+}
+
+h2 {
+  margin-top: 0;
+}
+
+.row {
+  display: grid;
+  gap: 0.4rem;
+  margin: 0.55rem 0;
+}
+
+label {
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+select,
+input,
+button {
+  border: 1px solid var(--border);
+  background: #0c1533;
+  color: var(--text);
+  border-radius: 10px;
+  padding: 0.55rem 0.7rem;
+}
+
+button {
+  cursor: pointer;
+}
+
+button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0.65rem 0;
+}
+
+.muted {
+  color: var(--muted);
+}
+
+#feedback,
+#mpFeedback,
+#storyDescription,
+#roomStatus {
+  min-height: 1.2rem;
+}
+
+.meter {
+  width: 100%;
+  height: 10px;
+  border-radius: 999px;
+  background: #081233;
+  border: 1px solid var(--border);
+  overflow: hidden;
+}
+
+#storyProgress {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(to right, var(--accent), var(--primary));
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th,
+.table td {
+  border-bottom: 1px solid var(--border);
+  padding: 0.45rem;
+  font-size: 0.9rem;
+  text-align: left;
+}
+
+.mini {
+  margin: 0;
+  padding-left: 1.1rem;
+  color: var(--muted);
+}
+
+.room-grid {
+  margin: 0.6rem 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 0.5rem;
+}
+
+#roomCodeView,
+#roomModeView,
+#roomHintView,
+#roomSongView {
+  background: #0c1533;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 0.5rem;
+}
+
+#gameSummary {
+  color: var(--muted);
+}
+
+ul#achievementList {
+  margin: 0;
+  padding-left: 1.1rem;
+  color: var(--muted);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(4px);}
+  to { opacity: 1; transform: translateY(0);}
+}
+
+@media (max-width: 700px) {
+  .topbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
