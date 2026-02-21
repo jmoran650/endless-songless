@@ -42,3 +42,4 @@ Thumbs.db
 
 # Project specific
 client/npm-cache/
+.vercel

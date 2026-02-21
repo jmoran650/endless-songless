@@ -1,41 +1,93 @@
 const express = require('express');
-const { prisma } = require('../db');
+const { withDbSession } = require('../db');
+const { requireAuth } = require('../middleware/auth');
+const { logError, logInfo } = require('../lib/observability');
 
 const router = express.Router();
+const LIST_LEADERBOARD_SQL = `
+  select
+    s.id,
+    s.user_id as "userId",
+    s.mode,
+    s.score,
+    s.date,
+    json_build_object('displayName', u.display_name) as user
+  from public.score_entries s
+  join public.users u on u.id = s.user_id
+  order by s.score desc
+  limit 50
+`;
+const INSERT_LEADERBOARD_SQL = `
+  insert into public.score_entries (
+    user_id,
+    mode,
+    score
+  )
+  values ($1, $2, $3)
+  returning
+    id,
+    user_id as "userId",
+    mode,
+    score,
+    date
+`;
 
 router.get('/', async (req, res) => {
   try {
-    const scores = await prisma.scoreEntry.findMany({
-      orderBy: { score: 'desc' },
-      take: 50,
-      include: {
-        user: { select: { displayName: true } }
-      }
+    const scoresResult = await withDbSession(
+      {
+        requestId: req.requestId,
+        backend: true,
+      },
+      (client) => client.query(LIST_LEADERBOARD_SQL)
+    );
+
+    logInfo('leaderboard.list.success', {
+      requestId: req.requestId,
+      count: scoresResult.rowCount,
     });
-    res.json(scores);
+    res.json(scoresResult.rows);
   } catch (err) {
-    console.error(err);
+    logError('leaderboard.list.failure', err, {
+      requestId: req.requestId,
+    });
     res.status(500).json({ error: 'Server error' });
   }
 });
 
-router.post('/', async (req, res) => {
-  const { userId, mode, score } = req.body;
-  if (!userId || score === undefined) {
-    return res.status(400).json({ error: 'Missing fields' });
+router.post('/', requireAuth, async (req, res) => {
+  const { mode, score } = req.body;
+  const userId = req.user.id;
+
+  if (score === undefined) {
+    return res.status(400).json({ error: 'Missing logic fields' });
   }
 
   try {
-    const entry = await prisma.scoreEntry.create({
-      data: {
+    const parsedScore = parseInt(score, 10);
+    if (!Number.isFinite(parsedScore)) {
+      return res.status(400).json({ error: 'Missing logic fields' });
+    }
+
+    const entryResult = await withDbSession(
+      {
         userId,
-        mode: mode || 'unlimited',
-        score: parseInt(score, 10)
-      }
+        requestId: req.requestId,
+      },
+      (client) => client.query(INSERT_LEADERBOARD_SQL, [userId, mode || 'unlimited', parsedScore])
+    );
+
+    logInfo('leaderboard.write.success', {
+      requestId: req.requestId,
+      userId,
+      score: parsedScore,
     });
-    res.status(201).json(entry);
+    res.status(201).json(entryResult.rows[0]);
   } catch (err) {
-    console.error(err);
+    logError('leaderboard.write.failure', err, {
+      requestId: req.requestId,
+      userId,
+    });
     res.status(500).json({ error: 'Server error' });
   }
 });

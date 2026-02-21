@@ -1,0 +1,56 @@
+- generic [ref=e3]:
+  - banner [ref=e4]:
+    - generic [ref=e5]:
+      - img [ref=e7]
+      - generic [ref=e12]:
+        - paragraph [ref=e13]: Shared Multiplayer
+        - heading "Songless Arena" [level=1] [ref=e14]
+    - generic [ref=e44]:
+      - generic [ref=e45]: NV
+      - generic [ref=e46]: Playwright Test
+      - button "Sign out" [ref=e47] [cursor=pointer]:
+        - img [ref=e48]
+        - text: Sign out
+  - main [ref=e15]:
+    - generic [ref=e51]:
+      - article [ref=e52]:
+        - heading "Player setup" [level=2] [ref=e53]
+        - paragraph [ref=e54]: Choose your multiplayer identity before creating or joining a room.
+        - generic [ref=e55]:
+          - text: Alias
+          - textbox "Alias" [ref=e56]:
+            - /placeholder: Playwright Test
+            - text: Playwright Test
+        - radiogroup "Avatar picker" [ref=e57]:
+          - button "NV Nova" [ref=e58] [cursor=pointer]:
+            - generic [ref=e59]: NV
+            - generic [ref=e60]: Nova
+          - button "EC Echo" [ref=e61] [cursor=pointer]:
+            - generic [ref=e62]: EC
+            - generic [ref=e63]: Echo
+          - button "RN Rune" [ref=e64] [cursor=pointer]:
+            - generic [ref=e65]: RN
+            - generic [ref=e66]: Rune
+          - button "FX Flux" [ref=e67] [cursor=pointer]:
+            - generic [ref=e68]: FX
+            - generic [ref=e69]: Flux
+          - button "AT Atlas" [ref=e70] [cursor=pointer]:
+            - generic [ref=e71]: AT
+            - generic [ref=e72]: Atlas
+          - button "PL Pulse" [ref=e73] [cursor=pointer]:
+            - generic [ref=e74]: PL
+            - generic [ref=e75]: Pulse
+        - paragraph [ref=e76]:
+          - text: Logged in as
+          - strong [ref=e77]: pw1771660626
+          - text: (friend code F6229830)
+      - article [ref=e78]:
+        - heading "Room actions" [level=2] [ref=e79]
+        - paragraph [ref=e80]: Create your room or join an existing one with a code.
+        - button "Create room" [ref=e81] [cursor=pointer]:
+          - img [ref=e82]
+          - text: Create room
+        - generic [ref=e83]:
+          - textbox "ABC123" [ref=e84]
+          - button "Join" [ref=e85] [cursor=pointer]
+    - paragraph [ref=e86]: Account created.

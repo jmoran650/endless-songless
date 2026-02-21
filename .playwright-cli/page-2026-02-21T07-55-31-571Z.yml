@@ -1,0 +1,38 @@
+- generic [ref=e3]:
+  - banner [ref=e4]:
+    - generic [ref=e5]:
+      - img [ref=e7]
+      - generic [ref=e12]:
+        - paragraph [ref=e13]: Shared Multiplayer
+        - heading "Songless Arena" [level=1] [ref=e14]
+  - main [ref=e15]:
+    - generic [ref=e44]:
+      - article [ref=e45]:
+        - heading "Everyone gets the same song and advances together." [level=2] [ref=e46]
+        - paragraph [ref=e47]: Host starts the room, every player gets the same two-minute round timer, and the server advances songs sequentially for everyone.
+        - list [ref=e48]:
+          - listitem [ref=e49]: Shared 2-minute rounds
+          - listitem [ref=e50]: Server-synced progression
+          - listitem [ref=e51]: Realtime-feeling room polling
+          - listitem [ref=e52]: Persistent room chat + avatar identity
+      - article [ref=e53]:
+        - generic [ref=e54]:
+          - button "Login" [ref=e55] [cursor=pointer]:
+            - img [ref=e56]
+            - text: Login
+          - button "Register" [ref=e59] [cursor=pointer]:
+            - img [ref=e60]
+            - text: Register
+        - generic [ref=e63]:
+          - generic [ref=e64]:
+            - text: Username
+            - textbox "Username" [ref=e65]: testuser_1771660522
+          - generic [ref=e66]:
+            - text: Display name
+            - textbox "Display name" [ref=e67]: Test User
+          - generic [ref=e68]:
+            - text: Password
+            - textbox "Password" [ref=e69]
+          - button "Create account" [ref=e70] [cursor=pointer]
+    - paragraph [ref=e71]: Account created.
+    - paragraph [ref=e72]: Session expired. Please sign in again.

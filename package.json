@@ -3,12 +3,25 @@
   "private": true,
   "version": "1.0.0",
   "type": "commonjs",
+  "workspaces": [
+    "client",
+    "server"
+  ],
   "devDependencies": {
     "playwright": "^1.53.0"
   },
   "scripts": {
-    "start": "node server.js",
+    "build": "npm run --prefix client build",
+    "prestart": "npm run build",
+    "start": "NODE_ENV=production npm run --prefix server start",
+    "start:dev": "npm run dev",
+    "dev:server": "npm run --prefix server start",
+    "dev:client": "npm run --prefix client dev",
+    "dev:client:host": "npm run --prefix client dev -- --host",
+    "dev:tunnel": "npm run dev:server & npm run dev:client:host & npx -y localtunnel --port 3000",
+    "dev": "npm install && (npm run dev:server & npm run dev:client)",
     "test": "node --test tests/server.test.js",
+    "test:e2e:local": "bash scripts/test-e2e-local.sh",
     "benchmark": "node benchmark.js",
     "benchmark:browser": "node benchmark-browser.js"
   }

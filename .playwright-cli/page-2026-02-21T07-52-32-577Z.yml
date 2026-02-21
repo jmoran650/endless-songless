@@ -1,0 +1,37 @@
+- generic [ref=e3]:
+  - banner [ref=e4]:
+    - generic [ref=e5]:
+      - img [ref=e7]
+      - generic [ref=e12]:
+        - paragraph [ref=e13]: Shared Multiplayer
+        - heading "Songless Arena" [level=1] [ref=e14]
+  - main [ref=e15]:
+    - generic [ref=e16]:
+      - article [ref=e17]:
+        - heading "Everyone gets the same song and advances together." [level=2] [ref=e18]
+        - paragraph [ref=e19]: Host starts the room, every player gets the same two-minute round timer, and the server advances songs sequentially for everyone.
+        - list [ref=e20]:
+          - listitem [ref=e21]: Shared 2-minute rounds
+          - listitem [ref=e22]: Server-synced progression
+          - listitem [ref=e23]: Realtime-feeling room polling
+          - listitem [ref=e24]: Persistent room chat + avatar identity
+      - article [ref=e25]:
+        - generic [ref=e26]:
+          - button "Login" [ref=e27] [cursor=pointer]:
+            - img [ref=e28]
+            - text: Login
+          - button "Register" [ref=e31] [cursor=pointer]:
+            - img [ref=e32]
+            - text: Register
+        - generic [ref=e35]:
+          - generic [ref=e36]:
+            - text: Username
+            - textbox "Username" [ref=e37]: testuser1771660344
+          - generic [ref=e41]:
+            - text: Display name
+            - textbox "Display name" [ref=e42]: Test User
+          - generic [ref=e38]:
+            - text: Password
+            - textbox "Password" [ref=e39]: Passw0rd!48
+          - button "Create account" [ref=e43] [cursor=pointer]
+    - paragraph [ref=e44]: Server error
